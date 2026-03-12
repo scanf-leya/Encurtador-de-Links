@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import jsPDF from "jspdf";
 
 const key = "SHORT-LINKS-LIST";
 
@@ -131,6 +132,55 @@ const handlerOpenLink = async (id: string, url: string) => {
 
   const isDisabled = linkOriginal.length === 0 || shortLink.length === 0;
 
+ const handlerDownloadCSV = () => {
+   if (linkList.length === 0) {
+     alert("Nenhum link para gerar CSV!");
+     return;
+   }
+
+   // Criar uma instância do jsPDF
+   const doc = new jsPDF({
+     orientation: "portrait", // retrato
+     unit: "mm",
+     format: "a4",
+   });
+
+   doc.setFontSize(18);
+   doc.text("Lista de Links Encurtados", 105, 15, { align: "center" });
+
+   doc.setFontSize(12);
+   const startY = 25; // altura inicial
+   const rowHeight = 10; // altura entre linhas
+   let y = startY;
+
+   // Cabeçalho
+   doc.text("Original", 20, y);
+   doc.text("Curto", 100, y);
+   doc.text("Acessos", 160, y);
+
+   y += rowHeight;
+
+   // Conteúdo
+   linkList.forEach((item) => {
+     doc.text(item.link, 20, y, { maxWidth: 70 }); // link original
+     doc.text(item.short, 100, y, { maxWidth: 50 }); // link curto
+     doc.text(item.access, 160, y); // número de acessos
+     y += rowHeight;
+
+     // Criar nova página se ultrapassar o limite
+     if (y > 280) {
+       doc.addPage();
+       y = 20;
+     }
+   });
+
+   // Salvar PDF
+   doc.save("links-encurtados.pdf");
+ };
+ 
+  
+
+
   return {
     linkOriginal,
     isLoading,
@@ -145,5 +195,6 @@ const handlerOpenLink = async (id: string, url: string) => {
     handlerEditLink,
     handlerDeleteLink,
     handlerOpenLink,
+    handlerDownloadCSV,
   };
 }

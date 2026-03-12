@@ -20,6 +20,7 @@ function App() {
     handlerEditLink,
     handlerDeleteLink,
     handlerOpenLink,
+    handlerDownloadCSV,
   } = ShortLinkHook();
 
   if (isLoading) {
@@ -69,6 +70,7 @@ function App() {
                  disabled={linkList.length <= 0}
                  variant="secondary"
                  className="flex items-center gap-2"
+                  onClick={handlerDownloadCSV}
                >
                  <DownloadIcon size={32} />
                  Baixar CSV
