@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "web",
   "private": true,
   "version": "0.0.0",
@@ -39,4 +40,20 @@
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"
   }
+=======
+  "name": "encurtador-de-links",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev",
+    "build:web": "pnpm --filter web build",
+    "build:api": "pnpm --filter api build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.1"
+>>>>>>> d52e11342af70629a1abdaa38954bbbed8821154
 }
